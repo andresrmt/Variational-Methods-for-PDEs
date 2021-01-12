@@ -1,0 +1,145 @@
+\documentclass[a4paper,doc,11pt]{article}
+%----------------------------------------------------------------------------------------
+%	Paquetes y configuraciones
+%----------------------------------------------------------------------------------------
+\usepackage[numbers]{natbib}
+\bibliographystyle{apalike}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{nicefrac}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{dsfont}
+\usepackage{bropd}
+\usepackage{easybmat}
+\usepackage{setspace}
+\usepackage{comment}
+\usepackage{mathpazo}
+\usepackage{array}
+\usepackage{commath}
+
+\usepackage{sectsty}
+\sectionfont{\centering\fontsize{13}{15}\selectfont}
+\subsectionfont{\centering\fontsize{10}{10}\selectfont\scshape}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{claim}{Claim}[subsection]
+
+
+
+
+\usepackage[font=small]{caption}
+\usepackage[font=small]{subcaption}
+\captionsetup{subrefformat=parens}
+\usepackage{booktabs} % nice headers for tables
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\llb}{\llbracket}
+\newcommand{\rrb}{\rrbracket}
+
+\DeclareMathOperator{\dom}{dom}
+\setcounter{MaxMatrixCols}{20}
+
+
+\SetLabelAlign{parright}{\parbox[t]{\labelwidth}{\raggedright#1}}
+\allowdisplaybreaks
+
+
+
+\linespread{1.38}
+
+%---------------------------------------- Autoría ---------------------------------------- %
+\usepackage{titling}
+\predate{}
+\postdate{}
+
+
+
+\title{
+    \Large
+    SMSTC 2021 
+    \\
+    Variational Methods of PDEs
+}
+\author{}%Andrés Miniguano Trujillo}
+\date{}
+
+
+\begin{document}
+%\pagenumbering{Roman} 
+\maketitle
+
+
+
+
+%\newpage
+%\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%
+%\newpage
+\section{User's Guide to Sobolev Spaces}
+%\pagenumbering{arabic}
+
+
+
+Example cite:
+\citet{Yann1991}, \citep{Yann1991}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Availability of data, material, and code}
+{
+%\small
+
+All the files and this document are available as in the following repository:
+\begin{quote}
+    \noindent \href{https://github.com/}{\texttt{https://github.com/}}
+\end{quote}
+
+
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+
+\bibliography{Cites}
+
+\end{document}
+
+
+
