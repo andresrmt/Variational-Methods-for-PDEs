@@ -64,6 +64,7 @@
 \newcommand{\rrb}{\rrbracket}
 
 \DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\supp}{supp}
 \setcounter{MaxMatrixCols}{20}
 
 
@@ -71,17 +72,21 @@
 \allowdisplaybreaks
 
 
+\usepackage[symbol]{footmisc}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
 
 \linespread{1.38}
 
 %---------------------------------------- Autoría ---------------------------------------- %
 \usepackage{titling}
 \predate{}
-\postdate{}
+\postdate{\vspace{-2\baselineskip}}
 
 
 
-\title{
+\title{\bf
     \Large
     SMSTC 2021 
     \\
@@ -102,12 +107,110 @@
 %\tableofcontents
 
 
-%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
 \section{User's Guide to Sobolev Spaces}
 %\pagenumbering{arabic}
 
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\subsection{Basic definitions}
 
+Let \(\Omega \subset \R^N\) be an open set, \(N\) a positive integer, and \(p \in \R\) be such that \( 1\leq p \leq \infty\).
+
+If we recall from Multi-variable Calculus, we know that if \(u\) is of class \( \CC^1(\Omega)\), then integration by parts yields
+\[
+    \int\limits_\Omega u \pd{\varphi}{x_i} \dif x = -\int\limits_\Omega \pd{u}{x_i} \varphi \dif x,
+\]
+whenever \( \varphi \equiv 0\) on \(\partial \Omega\). This gives us an alternative definition for the derivative of \(u\), which we can extend for measurable functions: Let \(u \in L^p(\Omega)\) and \(i \in \{1,\ldots,N\}\). If there exists \(g_i \in L^p (\Omega)\) such that
+\begin{equation}
+    \label{eq:1-pd}
+    \int\limits_\Omega u \pd{\varphi}{x_i} \dif x = -\int\limits_\Omega g_i \varphi \dif x,
+\end{equation}
+for all \(\varphi \in \CC_c^{1} (\Omega)\)\footnote[2]{We denote \(\CC_c^{\infty} (\Omega)\) as the set of compactly supported functions of class \(\CC^1\) defined over \(\Omega\): 
+\[
+    \CC_c^{1} (\Omega) = \big\{ \varphi \in \CC^1(\Omega): \, \Omega \supset \supp \varphi = \{x: \varphi(x) \neq 0\} \text{ is compact } \big\}.
+\]
+}, then we say that \(g_i\) is the \emph{weak partial derivative of \(u\) with respect to \(x_i\)}, and for convenience we denote \( \pd{u}{x_i} := g_i \). Likewise, if there exist \( g_1, \ldots g_N \in L^p (\Omega)\) such that \eqref{eq:1-pd} is satisfied for all \( i \in \{1, \ldots, N\}\), then we say that the vector
+\(
+    \nabla u = 
+    \begin{pmatrix}
+        \pd{u}{x_1}, \ldots, \pd{u}{x_N}
+    \end{pmatrix}
+\)
+is the \emph{weak derivative of \(u\)}.
+
+The set of \(L^p (\Omega)\) functions that have weak derivatives form the \emph{Sobolev space} \( W^{1,p} (\Omega)\) defined by
+\[
+    W^{1,p} (\Omega) :=
+    \left\{
+        u \in L^p (\Omega): \,
+        \begin{aligned}
+        &\exists \{g_i\}_{i\in \{1,\ldots, N\}} \text{ such that } 
+        \\
+        &\int\limits_\Omega u \pd{\varphi}{x_i} \dif x = -\int\limits_\Omega g_i \varphi \dif x \quad \forall \varphi \in \CC_c^1 (\Omega) \quad \forall i \in \{1,\ldots,N\}
+        \end{aligned}
+    \right\}.
+\]
+This space is equipped with the norm\footnote{When there is no confusion, we will write \(W^{1,p}\) instead of \(W^{1,p} (\Omega)\).}
+\[
+    \|u\|_{W^{1,p}} :=  \|u\|_p + \sum_{i=1}^N \left\| \pd{u}{x_i} \right\|_p.
+\]
+We further note \(H^1(\Omega) := W^{1,2}(\Omega)\), which has the associated scalar product
+\[
+    (u,v)_{H^1} = (u,v)_{L^2} + \sum_{i=1}^N \left( \pd{u}{x_i} , \pd{v}{x_i} \right)_{L^2}.
+\]
+Notice that by the Cauchy–Bunyakovsky–Schwarz inequality the associated norm in  \(H^1\) is equivalent to the \(W^{1,2}\) norm.
+
+\begin{proposition}
+    The weak derivative is unique (almost everywhere).
+\end{proposition}
+\begin{proof}
+    Let \(u \in W^{1,p}(\Omega)\), and suppose that there exists \(g_i\) and \( h_i\) such that both satisfy equation \eqref{eq:1-pd}, then
+    \[
+        0 = \int\limits_\Omega u \pd{\varphi}{x_i} \dif x - \int\limits_\Omega u \pd{\varphi}{x_i} \dif x = \int\limits_\Omega (g_i - h_i) \varphi \dif x
+    \]
+    for all \(\varphi \in \CC_c^1 (\Omega)\). By the Fundamental lemma of the calculus of variations, we have that \( g_i - h_i = 0\) almost everywhere, that is \( g_i = h_i\) (a.e).
+\end{proof}
+
+As weak derivatives are unique, there is no ambiguity in writing \(g_i = \pd{u}{x_i}\); i.e., our notation is consistent. Finally, we will see an important example of this theory:
+
+\begin{example}
+    Let \(\Omega = (-1,1) \subset \R\) and consider the function \( u(x) = |x|\). We have that integration by parts yields
+    \begin{align*}
+        \int\limits_\Omega u \varphi' \dif x
+        =
+        \int\limits_{0}^1 x \varphi'  \dif x
+        -
+        \int\limits_{-1}^0 x \varphi'  \dif x
+        = 
+        -\int\limits_{0}^1 \varphi  \dif x
+        +
+        \int\limits_{-1}^0 \varphi  \dif x
+        =
+        -\int\limits_\Omega g \varphi \dif x,
+    \end{align*}
+    where \(g\) is defined as
+    \[
+        g(x) = 
+        \begin{cases}
+            +1 & \text{if } x\in (0,1),
+            \\
+            -1 & \text{if } x\in (-1,0).
+        \end{cases}
+    \]
+    Notice that by definition \(u\in L^p(\Omega)\) for every \(1 \leq p\leq \infty \), and it is clear that \(g \in L^p (\Omega)\) as well. 
+\end{example}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+
+
+\vspace{2\baselineskip}
 
 Example cite:
 \citet{Yann1991}, \citep{Yann1991}
@@ -125,7 +228,7 @@ Example cite:
 
 All the files and this document are available as in the following repository:
 \begin{quote}
-    \noindent \href{https://github.com/}{\texttt{https://github.com/}}
+    \noindent \href{https://github.com/andresrmt/Variational-Methods-for-PDEs}{\texttt{https://github.com/andresrmt/Variational-Methods-for-PDEs}}
 \end{quote}
 
 
