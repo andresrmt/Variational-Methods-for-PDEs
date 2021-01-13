@@ -252,14 +252,22 @@ determine a sequence of mollifiers as clearly they are non-negative and
 \[
     \int\limits_{\R^N} e_\varepsilon (x) \dif x = \int\limits_{\R^N} e(x) \dif x = 1.
 \]
-Moreover, \( \supp e_\varepsilon \subset B(0,\varepsilon) \). In Figure \ref{} we see the shape of the sequence \( e_\varepsilon\) for different values of \(\varepsilon\).
+Moreover, \( \supp e_\varepsilon \subset B(0,\varepsilon) \). In Figure \ref{fig:1-Moll} we see the shape of the sequence \( e_\varepsilon\) for different values of \(\varepsilon\).
 %
+
+\begin{figure}
+    \centering
+    \includegraphics[width = \textwidth]{Fig-1_Moll.pdf}
+    \caption{Mollifier sequence generated from the standard mollifier \(e\). Each panel plots \(e_\varepsilon\) for a decreasing value of \(\varepsilon\)}
+    \label{fig:1-Moll}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 \subsubsection{Convolution}
 
-As we can see from Figure \ref{}, \( e_\varepsilon\) approximates Dirac's delta function, for small values of \(\varepsilon\). As a result, we can approximate \(u \in L^p (\Omega)\) by its \emph{mollification} given by
+As we can see from Figure \ref{fig:1-Moll}, \( e_\varepsilon\) approximates Dirac's delta function, for small values of \(\varepsilon\). As a result, we can approximate \(u \in L^p (\Omega)\) by its \emph{mollification} given by
 \[
     u_\varepsilon(x) := e_\varepsilon \star  u (x) = \int\limits_{\R^N} e_\varepsilon(x-y) u(y) \dif y.
 \]
