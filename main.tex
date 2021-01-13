@@ -64,6 +64,7 @@
 \newcommand{\rrb}{\rrbracket}
 
 \DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\supp}{supp}
 \setcounter{MaxMatrixCols}{20}
 
@@ -173,10 +174,10 @@ Notice that by the Cauchy–Bunyakovsky–Schwarz inequality the associated norm
     for all \(\varphi \in \CC_c^1 (\Omega)\). By the Fundamental lemma of the calculus of variations, we have that \( g_i - h_i = 0\) almost everywhere, that is \( g_i = h_i\) (a.e).
 \end{proof}
 
-As weak derivatives are unique, there is no ambiguity in writing \(g_i = \pd{u}{x_i}\); i.e., our notation is consistent. Finally, we will see an important example of this theory:
+As weak derivatives are unique, there is no ambiguity in writing \(g_i = \pd{u}{x_i}\); i.e., our notation is consistent. Finally, we will see an important example of this theory, namely a function that is not globally \(\CC^1(\Omega)\) but has a weak derivative.
 
 \begin{example}
-    Let \(\Omega = (-1,1) \subset \R\) and consider the function \( u(x) = |x|\). We have that integration by parts yields
+    Let \(\Omega = (-1,1) \subset \R\) and consider the function \( u = |\cdot|\). Notice that \(u\) is not differentiable at \(0\); however we will determine its derivative. We have that integration by parts with any \(\varphi \in \CC_c^1 (\Omega)\) yields
     \begin{align*}
         \int\limits_\Omega u \varphi' \dif x
         =
@@ -200,20 +201,184 @@ As weak derivatives are unique, there is no ambiguity in writing \(g_i = \pd{u}{
         \end{cases}
     \]
     Notice that by definition \(u\in L^p(\Omega)\) for every \(1 \leq p\leq \infty \), and it is clear that \(g \in L^p (\Omega)\) as well. 
+    
+    On the other hand, notice that \(g\) does \emph{not} belong to \( W^{1,p}(\Omega)\) for any \(1\leq p \leq \infty\). To see this, note that from Fundamental theorem of calculus and the fact that \(\varphi \in \CC_c^1 (\Omega)\):
+    \[
+        \int\limits_\Omega g \varphi' \dif x
+        =
+        \int\limits_0^1 \varphi' \dif x - \int\limits_{-1}^0 \varphi' \dif x
+        =
+        \varphi(1) - \varphi(0)  - \varphi(0) + \varphi(-1) = -2 \varphi(0).
+    \]
+    As a result, we would have that \( g = 2 \delta_0\), with \(\delta_0\) being Dirac's delta, which is a tempered distribution.
 \end{example}
 
 
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\subsection{Approximation by smooth functions}
+
+Let \(\Omega \subset \R^N\) be an open set, \(N\) a positive integer, \( 1\leq p < \infty\), and \( u \in L^p (\Omega)\). We would like see whether we can approximate \(u\) by a sequence of smooth functions.
+
+From the previous subsection, we saw that \(\CC_c^1 (\Omega)\) is the space of \(\CC^1\) functions with compact support in \(\Omega\). Recall that the support of a function \(\varphi\) is a set \( K \subset \Omega\) such that is the smallest compact set where \( \varphi (x) = 0\) for \( x\in \Omega \setminus K\), and we note it \(\supp \varphi\). On a similar fashion, we denote \(\CC_c^k (\Omega)\) as the space of \(\CC^k\) functions with compact support in \(\Omega\), and likewise \(\CC_c^\infty(\Omega)\) as the space of \(\CC^\infty\) functions with compact support in \(\Omega\).
+
+Note that a nonzero function \(\varphi \in \CC_c^\infty (\Omega)\) cannot be analytic, as its Taylor coefficients are zero for \( x \notin \supp \varphi\). An example of a nonzero function of this kind is 
+\[
+    e(x) := 
+    \begin{cases}
+        \lambda \exp \Big( \frac{1}{|x|^2-1} \Big) & \text{if } |x| < 1,
+        \\
+        0   & \text{if } |x| \geq 1,
+    \end{cases}
+\]
+where \(\lambda\) is conveniently chosen such that \( \int e = \lambda \).
+It can be shown that the \(n\)-th derivative of \(e\) is given by \( \od[n]{e}{x} = \frac{P_n(x)}{(x^2-1)^{2n}} e(x) \) for \( |x| < 1\), with \(P_n\) a polynomial \citep{Ball2019}; furthermore, \( e \in \CC_c^\infty (\R^N)\). 
+It turns out that the function \(e\) defined above is part of a set of functions named \emph{mollifiers}. 
+
+\begin{definition}
+    A function \( \rho \in \CC_c^\infty(\R^N)\) is called a \emph{mollifier} if it is non-negative and 
+    \(
+        %\rho \geq 0,\qquad
+        %\supp \rho \subset \overline{B(0,1)}, \qquad
+        \int\limits_{\R^N} \rho(x) \dif x = 1.
+    \)
+\end{definition}
+
+It is easy to generate a \emph{sequence of mollifiers} starting with a single function. For instance, if we consider the starndard mollifier \(e\) and let \(\varepsilon > 0\), then the functions
+\[
+    e_\varepsilon (x) := \varepsilon^{-N} e( \nicefrac x \varepsilon )
+\]
+determine a sequence of mollifiers as clearly they are non-negative and 
+\[
+    \int\limits_{\R^N} e_\varepsilon (x) \dif x = \int\limits_{\R^N} e(x) \dif x = 1.
+\]
+Moreover, \( \supp e_\varepsilon \subset B(0,\varepsilon) \). In Figure \ref{} we see the shape of the sequence \( e_\varepsilon\) for different values of \(\varepsilon\).
+%
+
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\subsubsection{Convolution}
+
+As we can see from Figure \ref{}, \( e_\varepsilon\) approximates Dirac's delta function, for small values of \(\varepsilon\). As a result, we can approximate \(u \in L^p (\Omega)\) by its \emph{mollification} given by
+\[
+    u_\varepsilon(x) := e_\varepsilon \star  u (x) = \int\limits_{\R^N} e_\varepsilon(x-y) u(y) \dif y.
+\]
+The mollification operation has the following properties:
+\begin{lemma}
+    Let \( 1\leq p < \infty\) and \( u \in L^p(\Omega)\). If we extende \(u \) to be zero outside \(\Omega\), then
+    \begin{itemize}
+        \item \(u_\varepsilon \in \CC_c^\infty (\R^N)\),
+        \item \( \lim_{\varepsilon \to 0} \|u - u_\varepsilon\|_{L^p} = 0 \).
+    \end{itemize}
+    Moreover, if \(u \in W^{1,p} (\R^N)\), then \( \lim_{\varepsilon \to 0} \|u - u_\varepsilon\|_{W^{1,p}} = 0 \).
+\end{lemma}
+
+As we can expect, when \(\varepsilon \to 0\), we have that \( e_\varepsilon \) becomes \(\delta_0\) and we expect \( \delta_0 \star u_\varepsilon (x)  = u(x)\), for we have approximated \(L^p\) with smooth functions. In other words, the set \(\CC_c^\infty\) is dense in \(\L^p (\Omega)\) for any \( 1 \leq p < \infty\). 
+
+\begin{proposition}[Differentiation of product]
+    Let \(u,v \in W^{1,p} (\Omega) \cap L^\infty (\Omega)\) with \( 1\leq p \leq \infty\). Then \(uv \in W^{1,p} (\Omega) \cap L^{\infty} (\Omega)\) and
+    \[
+        \pd{ }{x_i} (uv) = \pd{u}{x_i} v + u \pd{v}{x_i},
+    \]
+    for all \( i \in \{1,\ldots, N\}\).
+\end{proposition}
+
+We omit the proof of this proposition and refer the reader to Proposition 9.4 in \citep{Brezis2010}.
+
+\begin{proposition}[Differentiation of composition]
+    Let \(G \in \CC^1(\R)\) be such that \( G(0) = 0\) and \( |G'(x)| \leq M  \) for all \( x\in \R\) and for some constant \(M\). Let \( u\in W^{1,p} (\Omega)\) with \( 1\leq p \leq \infty\). Then \(G \circ u W^{1,p}(\Omega)\) and
+    \[
+        \pd{ }{x_i} (G \circ u) = (G'\circ u) \pd{u}{x_i}
+    \]
+    for all \( i \in \{1,\ldots, N\}\).
+\end{proposition}
+
+We omit the proof of this proposition and refer the reader to Proposition 9.5 in \citep{Brezis2010}.
+
+\subsubsection{Higher order Sobolev Spaces}
+
+All of the above discussion can be extended for higher order derivatives. For this end, it is convenient to have a compact notation for expressing mixed partial derivatives. A \emph{multi-index} \(\alpha\) is an \(N\)-tuple \( \alpha = (\alpha_1, \ldots, \alpha_N) \in \Z^N_+\), and we write \(|\alpha| = \alpha_1 + \ldots + \alpha_N\). 
+
+Let \( \varphi \in \CC_c^\infty (\Omega)\). We define 
+\[
+    D^\alpha \varphi = \left( \pd[\alpha_1]{ }{x_1} \right) \cdots \left( \pd[\alpha_N]{ }{x_N} \right) u = \frac{\partial^{|\alpha|}}{ \partial x_1^{\alpha_1} \ldots \partial x_N^{\alpha_N} }.
+\]
+For example, if \(\beta = (2,0,1)\) and \(N = 3\), we get that \( |\beta| = 3\) and
+\(
+    D^\beta \varphi = \md{\varphi}{3}{x_1}{2}{x_3}{}.
+\)
+
+Using this notation, we can say that a function \( v \in L^{p}(\Omega)\) is the \( \alpha^\text{th}\) \emph{weak derivative} of a function \(u \in L^p(\Omega)\) if it satisfies
+\[
+    \int\limits_\Omega u D^\alpha \varphi \dif x = (-1)^{|\alpha|} \int\limits_\Omega v \varphi \dif x,
+\]
+for all \(\varphi \in \CC_c^{|\alpha|} (\Omega)\). As a result, we can now define the general Sobolev Spaces:
+
+\begin{definition}
+Let \(m\) be a non-negative integer and let \( 1\leq p \leq \infty\). The Sobolev Space \(W^{m,p} (\Omega)\) is the linear space of functions \( u \in L^p (\Omega)\) such that for each \(\alpha\), \(0 \leq |\alpha| \leq m\), the weak derivative \(D^\alpha\) exists and belongs to \(L^p (\Omega)\). Namely,
+\[
+    W^{m,p} (\Omega) :=
+    \left\{
+        u \in L^p (\Omega): \,
+        \begin{aligned}
+        &\forall \alpha \text{ with } |\alpha| \leq m, \exists g_{\alpha} \in L^p (\Omega) \text{ such that } 
+        \\
+        &\int\limits_\Omega u D^\alpha \varphi \dif x = (-1)^{|\alpha|}\int\limits_\Omega g_\alpha \varphi \dif x \quad \forall \varphi \in \CC_c^\infty (\Omega)
+        \end{aligned}
+    \right\}.
+\]
+\end{definition}
+
+Just as with \(m = 1\), this space is also equipped with the norm
+\[
+    \|u\|_{W^{m,p}} :=  \sum_{0\leq |\alpha| \leq m} \| D^\alpha u \|_p,
+\]
+and it is a Banach space, see Theorem 8 \citep{Ball2019}. Moreover, the space \(W^{m,2}(\Omega)\) is often noted as \(H^m (\Omega)\) with the scalar product
+\[
+    (u,v)_{H^m} := \sum_{0\leq |\alpha| \leq m}  (D^\alpha u, D^\alpha v)_{L^2}.
+\]
+Notice that \(W^{0,p} (\Omega) = L^p (\Omega)\). Finally, the uniqueness of the derivative also follows from the Fundamental lemma of the calculus of variations, which we present now:
+
+\begin{lemma}[Fundamental lemma of the calculus of variations]
+    Let \( u \in L^1_{\mathrm{loc}} (\Omega)\) satisfy 
+    \[
+        \int\limits_\Omega u \varphi \dif x = 0
+    \]
+    for all \(\varphi \in \CC^k_c (\Omega)\), then \( u = 0 \) a.e. on \(\Omega\).
+\end{lemma}
+\begin{proof}
+    Without loss of generality, we can consider the limit case \(k = \infty\). To see this, let \( g \in L^{\infty} (\R^N)\) be a function such that \( \supp g\) is compact and contained in \(\Omega\). We define \( g_\varepsilon = \rho_\varepsilon \star g\) with \(\rho_\varepsilon\) a mollifier. Let \(K\) be compact such that \( K \subset \Omega\). If \(\varepsilon < \dist (K,\partial \Omega)\), then for each \(x\) the function \( \rho_\varepsilon (x - y)\) belongs to \( \CC^\infty_c (\Omega) \).
+    As a result
+    \[
+         \int\limits_\Omega u g_\varepsilon \dif x = 0
+    \]
+    for all \( x\in E\). However, we have that \( g_\varepsilon \to g\) in \(L^1 (\Omega)\), from where, via a subsequence, \( g_\varepsilon \to g\) almost everywhere on \(\R^N\). Moreover, as \( \|g_\varepsilon\|_\infty \leq \|g\|_\infty\), we can use Lebesgue's dominated convergence theorem to conclude \( \int\limits_\Omega u g\dif x = 0\). Now, we can pick \(g\) as the function
+    \[
+        g(x) = 
+        \begin{cases}
+            \mathrm{sign}(u) & \text{on } K,
+            \\
+            0   & \text{on } \R^N \setminus K.
+        \end{cases}
+    \]
+    As a result, we have that \( \int\limits_K |u| \dif x = 0\) and thus \( u = 0\) a.e. on \(K\). Since this hold for any compact set \(K \subset \Omega\), we conclude that \( u = 0 \) a.e. on \(\Omega\). 
+\end{proof}
+
+
+
 
 
 
 %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
+\subsection{Extension operator}
+
 
 
 \vspace{2\baselineskip}
 
 Example cite:
-\citet{Yann1991}, \citep{Yann1991}
+\citet{Brezis2010}, \citep{Brezis2010}
 
 
 
