@@ -533,6 +533,7 @@ It is worth mentioning that this construct can be carried out for \(W^{1,p}(\Ome
 The Sobolev Inequalities, also known as Sobolev embeding theorems, are a group of results that allow to recover some regularity from \(W^{1,p}\) spaces. 
 
 \begin{theorem}
+\label{theo:SGN}
     Let \( \Omega \subseteq \R^N \)  be \( \R^N\), open of class \(\CC^1\) with \(\partial \Omega\) bounded, or \( \R^N_+\). For \( 1\leq p \leq \infty\), we have
     \begin{align}
         W^{1,p} (\Omega) \subset L^{p^*} (\Omega) && \text{where } \quad\frac{1}{p^*} = \frac{1}{p} - \frac{1}{N} && \text{if } p < N,
@@ -546,16 +547,119 @@ The Sobolev Inequalities, also known as Sobolev embeding theorems, are a group o
         |u(x) - u(y)| \leq C\|u\|_{W^{1,p}} |x-y|^\alpha \qquad \text{a.e. }  x,y \in \Omega,
     \]
     with \(\alpha = 1 - \nicefrac N p\) and \(C\) depends only on \(\Omega\), \(p\), and \(N\). In particular, \( W^{1,p} (\Omega) \subset C(\bar \Omega)\).
+    
+    Regarding the last case, if \(m\) is a positive integer and \( m - \nicefrac N p\) is not an integer then \( W^{m,p} (\Omega) \subset C^k (\bar \Omega)\), where \( k = m - \nicefrac n p\).
 \end{theorem}
 
+Consider the case \(p = 2\). We then have that
+\begin{itemize}
+    \item \(N = 1\): \( H^1 (\Omega) \subset \CC^{0, \nicefrac 1 2} (\bar \Omega)\).
+    \item \(N = 2\):  \( H^1 (\Omega) \subset L^{q} (\Omega)\) for all  \( q \in [2,+\infty)\).
+    \item \(N = 3\): \( H^1 (\Omega) \subset L^{6} (\Omega)\).
+\end{itemize}
+
+The proof of Theorem \ref{theo:SGN} can be found in \citep{Brezis2010}, pages 278--285. We will not include it here. However, we will include a proof for \( N=1\) and \( p \in \{1,2\}\) which will use the following result:
+
+\begin{theorem}[Theorem 8.2 in \citep{Brezis2010}]
+    Let \(u \in W^{1,p} (I)\) with \( 1\leq p \leq \infty\), and \(I \subseteq \R\). Then there exists a function \( \tilde u \in \CC (\bar I)\) such that \( u = \tilde u\) almost everywhere on \(I\) and
+    \[
+        \tilde{u} (x) - \tilde{u}(y) = \int\limits_y^x u'(t) \dif t \qquad \forall x,y \in \bar I.
+    \]
+\end{theorem}
+Notice that this theorem asserts that every function \( u\in W^{1,p} \) admits one, and only one, continuous representative on \(\bar I\); i.e., there exists a continuous function on \(\bar I\) that belongs to the equivalence class of \(u\). To see this in \( p=2\), notice that
+\[
+    \big| u(x) - u(y) \big| \leq \bigg| \int\limits_y^x u'(t) \cdot 1 \dif t \bigg|
+    \leq
+    \bigg(\int\limits_y^x u'(t) \dif t \bigg)^{\nicefrac 1 2} |x-y|^{\nicefrac 1 2}
+    \leq \|u\|_{H^1} |x-y|^{\nicefrac 1 2},
+\]
+thus \( u \in \CC^{0,\nicefrac 1 2} (\bar \Omega)\). 
+
+There is a result that only occurs in \(N=1\): if \(p=1\) and \( I = (0,1) \), we have
+\[
+    \int\limits_0^1 u(x) - u(y) \dif y = \int\limits_0^1 \int\limits_y^x u'(t) \dif t \dif y \leq \int\limits_0^1 |u'|(z) \dif z.
+\]
+Thus 
+\[
+    |u(x)| \leq \int\limits_0^1 |u'|(z) \dif z + \int\limits_0^1 |u|(y) \dif y,
+\]
+and we have that \( u \in L^\infty (0,1)\). This can be further extended to more general domains as a characterisation of \( W^{1,p} (\R)\), see Proposition 8.3 in \citep{Brezis2010}; notwithstanding, it is only applicable for \(N=1\). For \(N > 1\), we can consider the function 
+\[
+    u(x) = \big( \log \nicefrac 1 |x| \big)^\alpha,
+\]
+defined over \( \Omega = B(0,\nicefrac 1 2)\) with \( \alpha \in (1,1-\nicefrac 1 N)\). This function belongs to \( W^{1,N}(\Omega)\) but it is not bounded due to its singularity at \( x=0\).
+
+\begin{theorem}
+    Suppose that \(\Omega\) is bounded, open, and of class \(\CC^1\). Then we have the following compact injections:
+    \begin{align}
+        W^{1,p} (\Omega) \subset\subset L^{q} (\Omega) && \text{for all } q\in [1,p^*),\quad    \text{where } \quad\frac{1}{p^*} = \frac{1}{p} - \frac{1}{N} && \text{if } p < N,
+        \\
+        W^{1,p} (\Omega) \subset\subset L^{q} (\Omega) && \text{for all } \quad q \in [p,+\infty) && \text{if } p = N,
+        \\
+        W^{1,p} (\Omega) \subset\subset \CC  (\bar \Omega) &&  && \text{if } p > N;
+    \end{align}
+    where with compact injection we mean that every bounded sequence in \(W^{1,p}\) has a convergent subsequence in \(L^q\).
+\end{theorem}
+
+The proof of this theorem can be found in \citep{Brezis2010}, page 285. Here it is noteworthy to see that the property for the case \( p > N\) follows from Theorem \ref{theo:SGN} and Ascoli--Arzelà's theorem.
 
 
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\subsection{Notion of traces}
 
+Now we turn into the question of how can we define the boundary values of a function \(u \in W^{1,p} (\Omega)\). This is not a trivial task even if \( \partial \Omega\) were smooth. On the one hand, we have that \(u\) is in principle defined only in \(\Omega\). On the other hand, even if \(u\) could be extended, the values of \(\tilde u\) on \(\partial \Omega\) would have no meaning since \(\partial \Omega\) has measure zero, and \(\tilde u\) may be altered at will on sets of measure zero.
 
+Let \(1 \leq p < \infty\). We begin with a fundamental lemma:
+\begin{lemma}
+    Let \(\Omega = \R^N_+\). There exists a constant \(C\) such that
+    \[
+        \int\limits_{\R^{N-1}} | u(x',0) |^p \dif x' \leq C \|u\|^p_{W^{1,p} (\Omega)}
+    \qquad
+    \forall  u \in \CC^1_c(\R^N).
+    \]
+\end{lemma}
+\begin{proof}
+    We have that
+    \[
+        |u|^p (x',0) = -\int\limits_0^\infty \pd{ }{x_N} |u|^p \dif x_N
+        = -p \int\limits_0^\infty |u|^{p-1} \pd{u}{x_N} \dif x_N.
+    \]
+    
+    Young's inequality states the following: if \(a,b \geq 0\) and \(p,q\) are such that \( 1 = \nicefrac 1 p + \nicefrac 1 q \), then
+    \[
+        ab \leq \frac{a^p}{p} + \frac{b^q}{q}.
+    \]
+    A simple proof of this inequality by convexity is found in \citep{Evans}, Appendix B2. Using this inequality above we get
+    \[
+        |u|^p (x',0) 
+        \leq C
+        \int\limits_0^\infty |u|^{(p-1)q}  + \left|\pd{u}{x_N}\right|^p \dif x_N,
+    \]
+    and by definition \( \nicefrac 1 q = \nicefrac{(p -1)}{p} \), thus
+    \[
+        |u|^p (x',0) 
+        \leq C
+        \int\limits_0^\infty |u|^{p}  + \left|\pd{u}{x_N}\right|^p \dif x_N,
+    \]
+    and the conclusion follows by integration in \( x' \in \R^{N-1}\).
+\end{proof}
 
+As \(\CC_c^1 (\R^N)\) is dense in \(W^{1,p} (\R^N_+)\), then \(u \to u\big|_{\R^{N-1} \times \{x_N = 0\}}\) extends in a linear and continuous way from \(W^{1,p} (\R^N_+)\) to \( L^p \big(\R^{N-1} \times \{x_N = 0\}\big)\). This operator is, by definition, the \emph{trace} of \(u\) on \(\partial \Omega\). 
 
+For a domain of class \(\CC^1\), there is also a \emph{trace} operator from \( W^{1,p} (\Omega)\) to \(L^p (\partial \Omega)\). This operator has the following properties:
+\begin{itemize}
+    \item It is bounded; i.e., there exist a constant \(C\geq 0\) such that
+    \[
+        \|u\|_{L^p (\partial \Omega)} \leq C \|u\|_{L^{1,p} ( \Omega)}.
+    \]
+    \item Its kernel is the set \( W_0^{1,p} (\Omega)\), which is the closure of \( \CC_c^\infty (\Omega)\) in \(W^{1,p}(\Omega)\) with respect to the \(W^{1,p}\) norm.
+\end{itemize}
 
-
+As a result, we have the following property:
+\begin{proposition}
+    A function \(u\) belongs to \( W^{1,p}_0 (\Omega)\) if and only if \( u \big|_{\partial \Omega} = 0\).
+\end{proposition}
 
 
 
