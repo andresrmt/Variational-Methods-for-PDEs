@@ -210,7 +210,7 @@ As weak derivatives are unique, there is no ambiguity in writing \(g_i = \pd{u}{
         =
         \varphi(1) - \varphi(0)  - \varphi(0) + \varphi(-1) = -2 \varphi(0).
     \]
-    As a result, we would have that \( g = 2 \delta_0\), with \(\delta_0\) being Dirac's delta, which is a tempered distribution.
+    As a result, we would have that \( g = 2 \delta_0\), with \(\delta_0\) being Dirac's delta, which is a tempered distribution. On the other hand, from calculus we would need \(\od{g}{x} = 0\) for \( x\in (-1,0)\cup (0,1)\), which would imply that \( \varphi(0) = 0\) for all \(\varphi \in \CC_c^1 (\Omega)\), which is a contradiction.
 \end{example}
 
 
@@ -258,7 +258,7 @@ Moreover, \( \supp e_\varepsilon \subset B(0,\varepsilon) \). In Figure \ref{fig
 \begin{figure}
     \centering
     \includegraphics[width = \textwidth]{Fig-1_Moll.pdf}
-    \caption{Mollifier sequence generated from the standard mollifier \(e\). Each panel plots \(e_\varepsilon\) for a decreasing value of \(\varepsilon\)}
+    \caption{Mollifier sequence generated from the standard mollifier \(e\).\\ Each panel plots \(e_\varepsilon\) for a decreasing value of \(\varepsilon\). The vertical lines represent the cuts \( x = -\varepsilon\) and \(x = \varepsilon\). }
     \label{fig:1-Moll}
 \end{figure}
 
@@ -281,7 +281,7 @@ The mollification operation has the following properties:
     Moreover, if \(u \in W^{1,p} (\R^N)\), then \( \lim_{\varepsilon \to 0} \|u - u_\varepsilon\|_{W^{1,p}} = 0 \).
 \end{lemma}
 
-As we can expect, when \(\varepsilon \to 0\), we have that \( e_\varepsilon \) becomes \(\delta_0\) and we expect \( \delta_0 \star u_\varepsilon (x)  = u(x)\), for we have approximated \(L^p\) with smooth functions. In other words, the set \(\CC_c^\infty\) is dense in \(\L^p (\Omega)\) for any \( 1 \leq p < \infty\). 
+As we can expect, when \(\varepsilon \to 0\), we have that \( e_\varepsilon \) becomes \(\delta_0\) and we expect \( \delta_0 \star u_\varepsilon (x)  = u(x)\), for we have approximated \(L^p\) with smooth functions. In other words, the set \(\CC_c^\infty\) is dense in \(L^p (\Omega)\) for any \( 1 \leq p < \infty\). 
 
 \begin{proposition}[Differentiation of product]
     Let \(u,v \in W^{1,p} (\Omega) \cap L^\infty (\Omega)\) with \( 1\leq p \leq \infty\). Then \(uv \in W^{1,p} (\Omega) \cap L^{\infty} (\Omega)\) and
@@ -381,6 +381,74 @@ Notice that \(W^{0,p} (\Omega) = L^p (\Omega)\). Finally, the uniqueness of the 
 %%%%%%%%%%%%%%%%%
 \subsection{Extension operator}
 
+It is often convenient to establish properties of functions in \(W^{1,p}(\Omega) \) starting with the case \( \Omega = \R^N\). As a result, it is useful to be able to extend a function \( u \in W^{1,p} (\Omega)\) to a function in \( W^{1,p} (\R^N)\). 
+
+We start with some notation. Given \( x \in \R^N\), we will write
+\[
+    x = (x', x_N) \text{ with } x' \in \R^{N-1}, \qquad 
+    x' = (x_1, \ldots, x_{N-1}).
+\]
+Moreover, we will notate \(\R^N_+\) as the set
+\[
+    \R^N_+ := \{ x = (x',x_N): \, x_N > 0 \}.
+\]
+
+\begin{lemma}
+    Given \( u \in W^{1,p} (\R^N_+)\) with \( 1 \leq p \leq \infty\), one defines the function \(u^*\) on \(\R^N\) to be the \emph{extension by reflection}, that is,
+    \[
+        u^* (x',x_N) = 
+        \begin{cases}
+            u (x',x_N) & \text{if } x_N > 0,
+            \\
+            u (x',-x_N) & \text{if } x_N < 0.
+        \end{cases}
+    \]
+    Then \( u^* \in W^{1,p} (\R^N)\) and
+    \[
+        \|u^*\|_{L^p (\R^N)} \leq 2 \|u\|_{L^p (\R^N_+)},
+        \qquad
+        \|u^*\|_{W^{1,p} (\R^N)} \leq 2 \|u\|_{W^{1,p} (\R^N_+)}.
+    \]
+    Moreover, we also have
+    \[
+        \pd{u^*}{x_i} = \left( \pd{u}{x_i} \right)^* 
+    \]
+    for \( i \in \{1,\ldots, N-1\}\) and
+    \[
+        \pd{u^*}{x_N} = \left( \pd{u}{x_i} \right)^{\square}
+        =
+        \begin{cases}
+            \pd{u}{x_N} (x',x_N) & \text{if } x_N > 0,
+            \\
+            -\pd{u}{x_N} (x',-x_N) & \text{if } x_N < 0.
+        \end{cases}
+    \]
+\end{lemma}
+\begin{proof}
+    Let \(\eta \in \CC^\infty\) be such that 
+    \[
+        \eta (t) =
+        \begin{cases}
+            0   &\text{if } t < \nicefrac 1 2
+            \\
+            1   & \text{if } t > 1. 
+        \end{cases}
+    \]
+
+    We shall use a sequence \((\eta_k)_{k\in \N^*}\) of functions in \(\CC^\infty (\R)\) defined by
+    \[
+        \eta_k (t) = \eta (kt)
+        =
+    \]
+    
+    \begin{figure}
+    \centering
+    \includegraphics[width = \textwidth]{Fig}
+    \caption{Mollifier sequence generated from the standard mollifier \(e\).\\ Each panel plots \(e_\varepsilon\) for a decreasing value of \(\varepsilon\). The vertical lines represent the cuts \( x = -\varepsilon\) and \(x = \varepsilon\). }
+    \label{fig:2-Ext}
+\end{figure}
+    
+\end{proof}
 
 
 \vspace{2\baselineskip}
