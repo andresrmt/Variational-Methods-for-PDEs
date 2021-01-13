@@ -409,7 +409,7 @@ Moreover, we will notate \(\R^N_+\) as the set
         \qquad
         \|u^*\|_{W^{1,p} (\R^N)} \leq 2 \|u\|_{W^{1,p} (\R^N_+)}.
     \]
-    Moreover, we also have
+    In fact, this comes from
     \[
         \pd{u^*}{x_i} = \left( \pd{u}{x_i} \right)^* 
     \]
@@ -439,16 +439,127 @@ Moreover, we will notate \(\R^N_+\) as the set
     \[
         \eta_k (t) = \eta (kt)
         =
+        \begin{cases}
+            0   &\text{if } t < \nicefrac{1}{2k}
+            \\
+            1   & \text{if } t > \nicefrac{1}{k}. 
+        \end{cases}
     \]
     
     \begin{figure}
     \centering
-    \includegraphics[width = \textwidth]{Fig}
-    \caption{Mollifier sequence generated from the standard mollifier \(e\).\\ Each panel plots \(e_\varepsilon\) for a decreasing value of \(\varepsilon\). The vertical lines represent the cuts \( x = -\varepsilon\) and \(x = \varepsilon\). }
+    \includegraphics[width = \textwidth]{Fig-2_Ext.pdf}
+    \caption{A representation of \(\eta\) and the sequence \(\eta_k\) for the first values of \(k \in \N^*\).\\ The vertical lines correspond to \( x = \nicefrac 1 k\) and \(x = \nicefrac{1}{2k}\). }
     \label{fig:2-Ext}
 \end{figure}
     
+    Let \(\varphi \in \CC^1_c (\R^N)\) and \( 1 \leq i \leq N-1\). By definition we have that
+    \[
+        \int\limits_{\R^N} u^* \pd{\varphi}{x_i} \dif x = 
+        \int\limits_{\R^N_+} u \pd{\varphi}{x_i} \dif x 
+        +
+        \int\limits_{\R^N_-} u(x',-x_N) \pd{\varphi}{x_i} \dif x 
+        =
+        \int\limits_{\R^N_+} u \pd{\psi}{x_i} \dif x ,
+    \]
+    where \(\phi(x', x_N) := \varphi(x', x_N) + \varphi(x', -x_N)\). The function \(\psi\) does not in general belong to \( \CC_c^1 (\R^N)_+\), and thus it cannot be used as a test function in the definition of \( W^{1,p} \). On the other hand, we note that \( \eta_k (x_N) \psi (x', x_N) \in C_c^1 (\R^N_+)\) and thus
+    \[
+        \int\limits_{\R^N_+} u \pd{ }{x_i} (\eta_k \psi) \dif x 
+        =
+        -\int\limits_{\R^N_+} \pd{u}{x_i} \eta_k \psi \dif x.
+    \]
+    Since \( \pd{ }{x_i} (\eta_k \psi) = \eta_k \pd{\psi}{x_i} \), we have
+    \[
+        \int\limits_{\R^N_+} u \eta_k \pd{ }{x_i} \psi \dif x 
+        =
+        -\int\limits_{\R^N_+} \pd{u}{x_i} \eta_k \psi \dif x.
+    \]
+    Passing to the limit as \(k \to \infty\) (by Lebesgue's dominated convergence theorem), we obtain
+    \[
+        \int\limits_{\R^N_+} u \pd{ }{x_i} \psi \dif x 
+        =
+        -\int\limits_{\R^N_+} \pd{u}{x_i} \psi \dif x.
+    \]
+    As a result, we have gotten
+    \[
+        \int\limits_{\R^N} u^* \pd{\varphi}{x_i} \dif x = 
+        -\int\limits_{\R^N_+} \pd{u}{x_i} \psi \dif x =
+        -\int\limits_{\R^N} \left(\pd{u}{x_i} \right)^* \psi \dif x.
+    \]
+    
+    
+    Now, for the case \( i = N\), we have
+    \[
+        \int\limits_{\R^N} u^* \pd{\varphi}{x_N} \dif x = 
+        \int\limits_{\R^N_+} u \pd{\chi}{x_N} \dif x ,
+    \]
+    where \(\chi(x', x_N) := \varphi(x', x_N) - \varphi(x', -x_N)\). Note that \( \chi(x',0) = 0\), and thus there exist a constant \(M\) such that \(|\chi(x',x_N)| \leq M|x_N|\) on \(\R^N\). Since \( \eta_k \chi \in C_c^1 (\R^N_+)\), we have
+    \[
+        \int\limits_{\R^N_+} u \pd{ }{x_N} (\eta_k \chi) \dif x 
+        =
+        -\int\limits_{\R^N_+} \pd{u}{x_N} \eta_k \chi \dif x.
+    \]
+    But \( \pd{ }{x_N} (\eta_k \chi) = \eta_k \pd{\chi}{x_N} + k \eta'(k x_N) \chi \). Notwithstanding, we further have
+    \[
+        \left| \int\limits_{\R^N_+} u k \eta'(k x_N) \chi \dif x \right|
+        \leq k M C \int\limits_{\R^N_+ \cap \{|x_N| < \nicefrac 1 k\}} |u| x_N \dif x
+        \leq MC \int\limits_{\R^N_+ \cap \{|x_N| < \nicefrac 1 k\}} |u| \dif x,
+    \]
+    thus
+    \[
+        \int\limits_{\R^N_+} u k \eta'(k x_N) \chi \dif x \to 0 
+    \]
+    as \(k \to \infty\). As a result, we have that
+    \[
+        \int\limits_{\R^N_+} u \pd{ }{x_N} (\chi) \dif x 
+        =
+        -\int\limits_{\R^N_+} \pd{u}{x_N} \psi \dif x.
+    \]
+    Finally, we have 
+    \[
+        \int\limits_{\R^N_+} \pd{u}{x_N} \chi \dif x 
+        =
+        \int\limits_{\R^N} \left( \pd{u}{x_N} \right)^\square \varphi \dif x.
+        \qedhere
+    \]
 \end{proof}
+
+It is worth mentioning that this construct can be carried out for \(W^{1,p}(\Omega)\), when \(\Omega\) is a \(\CC^1\) domain, see Theorem 9.7 in \citep{Brezis2010}.
+
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\subsection{Sobolev Inequalities}
+
+The Sobolev Inequalities, also known as Sobolev embeding theorems, are a group of results that allow to recover some regularity from \(W^{1,p}\) spaces. 
+
+\begin{theorem}
+    Let \( \Omega \subseteq \R^N \)  be \( \R^N\), open of class \(\CC^1\) with \(\partial \Omega\) bounded, or \( \R^N_+\). For \( 1\leq p \leq \infty\), we have
+    \begin{align}
+        W^{1,p} (\Omega) \subset L^{p^*} (\Omega) && \text{where } \quad\frac{1}{p^*} = \frac{1}{p} - \frac{1}{N} && \text{if } p < N,
+        \\
+        W^{1,p} (\Omega) \subset L^{q} (\Omega) && \text{for all } \quad q \in [p,+\infty) && \text{if } p = N,
+        \\
+        W^{1,p} (\Omega) \subset L^{\infty} (\Omega) &&  && \text{if } p > N;
+    \end{align}
+    and all the injections are continuous. Moreover, if \(p > N\) we have, for all \(u \in W^{1,p} (\Omega)\),
+    \[
+        |u(x) - u(y)| \leq C\|u\|_{W^{1,p}} |x-y|^\alpha \qquad \text{a.e. }  x,y \in \Omega,
+    \]
+    with \(\alpha = 1 - \nicefrac N p\) and \(C\) depends only on \(\Omega\), \(p\), and \(N\). In particular, \( W^{1,p} (\Omega) \subset C(\bar \Omega)\).
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \vspace{2\baselineskip}
