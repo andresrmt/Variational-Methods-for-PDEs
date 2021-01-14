@@ -171,7 +171,7 @@ Notice that by the Cauchy–Bunyakovsky–Schwarz inequality the associated norm
     \[
         0 = \int\limits_\Omega u \pd{\varphi}{x_i} \dif x - \int\limits_\Omega u \pd{\varphi}{x_i} \dif x = \int\limits_\Omega (g_i - h_i) \varphi \dif x
     \]
-    for all \(\varphi \in \CC_c^1 (\Omega)\). By the Fundamental lemma of the calculus of variations, we have that \( g_i - h_i = 0\) almost everywhere, that is \( g_i = h_i\) (a.e).
+    for all \(\varphi \in \CC_c^1 (\Omega)\). By the Fundamental lemma of the calculus of variations (which we will prove in the next subsection), we have that \( g_i - h_i = 0\) almost everywhere, that is \( g_i = h_i\) (a.e).
 \end{proof}
 
 As weak derivatives are unique, there is no ambiguity in writing \(g_i = \pd{u}{x_i}\); i.e., our notation is consistent. Finally, we will see an important example of this theory, namely a function that is not globally \(\CC^1(\Omega)\) but has a weak derivative.
@@ -231,7 +231,7 @@ Note that a nonzero function \(\varphi \in \CC_c^\infty (\Omega)\) cannot be ana
         0   & \text{if } |x| \geq 1,
     \end{cases}
 \]
-where \(\lambda\) is conveniently chosen such that \( \int e = \lambda \).
+where \(\lambda\) is conveniently chosen such that \( \int e = 1 \).
 It can be shown that the \(n\)-th derivative of \(e\) is given by \( \od[n]{e}{x} = \frac{P_n(x)}{(x^2-1)^{2n}} e(x) \) for \( |x| < 1\), with \(P_n\) a polynomial \citep{Ball2019}; furthermore, \( e \in \CC_c^\infty (\R^N)\). 
 It turns out that the function \(e\) defined above is part of a set of functions named \emph{mollifiers}. 
 
@@ -664,22 +664,57 @@ As a result, we have the following property:
 The following is a direct application of this result:
 
 \begin{example}
-    Consider a domain \(\Omega\) as shown in Figure \ref{fig:3-Split}
+    Consider a domain \(\Omega\) as shown in Figure \ref{fig:3-Split}, which is split into the domains \(\Omega^+\) and \(\Omega^-\). Assume that \( P\) is of class \(\CC^1\). 
     \begin{figure}
         \centering
         \includegraphics[scale=0.5]{Fig-3_Domains.pdf}
-        \caption{Caption}
+        \caption{Domain \(\Omega\).}
         \label{fig:3-Split}
     \end{figure}
+    Moreover, assume that
+    \[
+        \begin{cases}
+            u^- \in W^{1,p}(\Omega^-),
+            \\
+            u^+ \in W^{1,p}(\Omega^+).
+        \end{cases}
+    \]
+    If we define
+    \[
+        u = 
+        \begin{cases}
+            u^- \text{ in } \Omega^-,
+            \\
+            u^+ \text{ in } \Omega^+;
+        \end{cases}
+    \]
+    Then, we have the following: 
+    \begin{quote}
+        A function \(u\) belongs to \( W^{1,p} (\Omega)\) if an only if \(u^- = u^+\) on \(P\).
+    \end{quote}
 \end{example}
 
+As a corollary, this property yields another proof for the Heaviside function not belonging to any \(W^{1,p}(\R)\):
+\begin{proof}
+    The Heaviside function is defined as
+    \[
+        H(x) =
+        \begin{cases}
+            1 & \text{if } x \geq 0,
+            \\
+            0 & \text{if } x <0.
+        \end{cases}
+    \]
+    Notice that \( \lim_{x\to 0^-} H(x) = 0\) and \( \lim_{x\to 0^+} H(x) = 1\), thus \(H\) cannot belong to \(W^{1,p}(\Omega)\).
+\end{proof}
 
 
 
-\vspace{2\baselineskip}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Further references}
 
-Example cite:
-\citet{Brezis2010}, \citep{Brezis2010}
+Most of the notes here can be traced back to the book of \citet{Brezis2010}. A comprehensive reference on Sobolev spaces is Sobolev spaces, second edition by \citet{Adams2003}. A nice review on inequalities used in functional analysis is available in \citet{Evans}. Finally, a quick summary on Sobolev spaces is also available in \citet{Ball2019}.
 
 
 
@@ -703,7 +738,7 @@ All the files and this document are available as in the following repository:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+%\newpage
 
 
 \bibliography{Cites}
