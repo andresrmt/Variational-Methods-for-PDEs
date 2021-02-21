@@ -1,0 +1,389 @@
+\documentclass[a4paper,doc,11pt]{article}
+%----------------------------------------------------------------------------------------
+%	Paquetes y configuraciones
+%----------------------------------------------------------------------------------------
+\usepackage[numbers]{natbib}
+\bibliographystyle{apalike}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{nicefrac}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{dsfont}
+\usepackage{bropd}
+\usepackage{easybmat}
+\usepackage{setspace}
+\usepackage{comment}
+\usepackage{mathpazo}
+\usepackage{array}
+\usepackage{commath}
+
+\usepackage{sectsty}
+\sectionfont{\centering\fontsize{13}{15}\selectfont}
+\subsectionfont{\centering\fontsize{10}{10}\selectfont\scshape}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{claim}{Claim}[subsection]
+
+
+
+
+\usepackage[font=small]{caption}
+\usepackage[font=small]{subcaption}
+\captionsetup{subrefformat=parens}
+\usepackage{booktabs} % nice headers for tables
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\llb}{\llbracket}
+\newcommand{\rrb}{\rrbracket}
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\supp}{supp}
+\setcounter{MaxMatrixCols}{20}
+
+
+\SetLabelAlign{parright}{\parbox[t]{\labelwidth}{\raggedright#1}}
+\allowdisplaybreaks
+
+
+\usepackage[symbol]{footmisc}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+\linespread{1.38}
+
+%---------------------------------------- Autoría ---------------------------------------- %
+\usepackage{titling}
+\predate{}
+\postdate{\vspace{-2\baselineskip}}
+
+
+
+\title{\bf
+    \Large
+    SMSTC 2021 
+    \\
+    Variational Methods of PDEs
+}
+\author{}%Andrés Miniguano Trujillo}
+\date{}
+
+
+\begin{document}
+%\pagenumbering{Roman} 
+\maketitle
+
+
+
+
+%\newpage
+%\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+\setcounter{section}{5}
+\section{Young measures}
+%\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%
+
+Las week we saw that the functional 
+\[
+    J(u) = \int\limits_{[0,1]^2} u_x^2 + (u_y^2-1)^2 \dif x
+\]
+had zero as an infimum but could not attain a minimum. Namely, we built a sequence \((u_n)_{n\in \N}\) in \(H_0^1 (\Omega) \cap W_0^{1,4} (\Omega)\) such that \( J(u_n) \to 0\) and \(u_n \to 0\) in \(L^2(\Omega)\), but this resulted in a contradiction as \(J(0) = 1\). Now we turn into giving sense to this behaviour among minimising sequences.
+
+%%%%%%%%%%%%%%%%%
+\subsection{Giving sense to minimising sequences}
+
+Let us define \(C_0(\R^d)\) as the closure of continuous functions on \(\R^d\) with compact support. Its dual can be identified with the space of signed Radon measures with finite mass \(\mathcal{M}(\R^d)\) with the pairing
+\[
+    \langle \mu,f \rangle = \int_{\R^d} f \dif \mu.
+\]
+A map \(\mu : E \to \mathcal{M}(\R^d)\) is called weak* measurable if the functions \(x \mapsto \langle \mu(x), f\rangle\) are measurable for all \(f\in C_0 (\R^d)\). Here we will often write \(\mu_x\) instead of \(\mu(x)\).
+
+\begin{theorem}[Fundamental theorem on Young measures]
+    Let \(E \subset \R^d\) be a measurable set of finite measure, and let \(z_n : E \to \R^d\) be a sequence of measurable functions. Then there exists a subsequence \((z_{n_k})_{n_k \in \N}\) and a weak* measurable map \(\nu: E \to \mathcal{M}(\R^d)\) such that the following holds:
+    
+    \begin{enumerate}
+        \item \(\nu_x\geq 0\) and \( \|\nu_x\|_{\mathcal{M}(\R^d)} = \int_{\R^d} \dif \nu_x \leq 1 \) for almost everywhere \(x\in E\).
+        
+        \item For all \(f \in C_0(\R^d)\)
+        \[
+            f(z_{n_k}) \overset{*}{\rightharpoonup} \overline{f}    \qquad \text{in } L^\infty (E)
+        \]
+        where
+        \[
+            \overline{f}(x) = \langle \nu_x,f \rangle.
+        \]
+        
+        \item Let \(K \subset \R^d\) be compact, then 
+        \[
+            \supp(\nu_x) \subset K
+            \qquad\text{if}
+            \quad
+            \dist(z_{n_k}, K) \to 0
+            \quad
+            \text{in measure}.
+        \]
+        
+        \item Furthermore, one has that 
+        \begin{equation}
+        \label{measure:cond}
+            \|\nu_x\|_{\mathcal{M}} = 1 \qquad \text{for almost everywhere } x\in E
+            \tag{$i'$}
+        \end{equation}
+            if and only if the sequence does not escape to infinity; i.e., if
+            \[
+                \lim_{M\to \infty} \sup_k \big| \big\{ |z_{n_k}| \geq M \big\} \big| = 0.
+            \]
+        
+        \item If \eqref{measure:cond} holds, and if \(A \subset E\) is measurable, \(f \in C(\R^d)\), and 
+        \[
+            f(z_{n_k}) \text{ is relatively compact in } L^1(A),
+        \]
+        then
+        \[
+            f(z_{n_k}) \rightharpoonup \overline{f} \quad \text{in } L^1(A).
+        \]
+        
+        \item If \eqref{measure:cond} holds, then point (3) is also sufficient.
+    \end{enumerate}
+    
+    The map \(\nu: E \to \mathcal{M}(\R^d)\) is called the \emph{Young measure} generated by (or associated to) \((z_{n_k})_{n_k \in \N}\).
+\end{theorem}
+\begin{comment}
+Let us consider the following application of the last property:
+
+\begin{example}
+    Let \( (z_n)_{n\in \N}\) be bounded in \(L^p\) and \(\big|f(s)\big|\leq C(1 + |s|^q)\) for \( q < p\), then \(f(z_{n_k}) \rightharpoonup \overline{f}\) in \(L^{\nicefrac p q}\). In particular, if \(p>1\), the choice \( f = \mathrm{id}\) yields
+    \[
+        z_{n_k} \rightharpoonup z,
+        \qquad
+        z(x) = \langle \nu_x , \mathrm{id} \rangle.
+    \]
+\end{example}
+\end{comment}
+\begin{proof}
+    The basic idea is to pass from functions in \(\R^d\) to maps in \(\mathcal{M}(\R^d)\). Thus we will use limiting objects which do not take a precise function value at every point but a probability distribution of values.
+    
+    Define \(Z_{n}(x) := \delta_{z_n} (x)\). Then by definition \( \|Z_n(x)\|_{\mathcal{M}} = 1 \) and \(\langle Z_n(x), f\rangle = f\big(z_n(x)\big)\). Thus \( (Z_n)_{n\in\N}\) belongs to the space \(L^\infty_w\big( E; \mathcal{M}(\R^d) \big)\): the space of weak* measurable maps from \(E\) to \(\mathcal{M}(\R^d)\) that are essentially bounded. From functional analysis in \(L^p\) spaces, it turns out that this is the dual of \(L^1 \big( E; C(\R^d) \big)\), which is separable. The natural duality pairing between the two is given by
+    \[
+        \langle \mu, g \rangle = \int\limits_E \big\langle \mu(x), g(x) \big\rangle \dif x
+    \]
+    Hence, the Banach-Alaoglu theorem\footnote{\emph{The closed unit ball of the dual space of a normed vector space is compact in the weak* topology.}} yields a subsequence such that
+    \[
+        Z_{n_k} = \delta_{n_k} \overset{*}\rightharpoonup \nu 
+        \qquad\text{in } L^\infty_w\big( E; \mathcal{M}(\R^d) \big).
+    \]
+    Moreover, as the norm is lower-semicontinous, we have that \(\|\nu_x\|_\mathcal{M} \leq 1\) for almost everywhere \(x\). 
+    
+    For \(\varphi \in L^1(E)\) and \(f\in C_0(\R^d)\), let us denote \( \varphi \otimes f \) as an element of \(L^1 \big( E; C(\R^d) \big)\) such that \( x \mapsto \varphi(x) f\). By definition of \((Z_n)_{n\in \N}\) and the previous convergence result, we get
+    \[
+        \int\limits_E \varphi(x) f\big( z_{n_k}(x) \big) \dif x
+        = \big\langle Z_{n_k}, \varphi \otimes f \big\rangle
+        \to
+        \int\limits_E \varphi(x) \langle \nu_x, f\rangle \dif x.
+    \]
+    This implies (2), and if we consider functions \( f\geq 0\) and \(\varphi \geq 0\), then \( \nu_x\geq 0\) follows as well, so we have (1) too.
+    
+    To proof (3), consider \(K\subset \R^d\) compact with \(\dist(z_{n_k}, K) \to 0\) in measure. Here it suffices to show that
+    \begin{equation}
+    \label{to-prove}
+        \langle \nu_x , f\rangle = 0    \qquad \forall f \in C_0(\R^d \setminus K).
+    \end{equation}
+    Let \(f \in C_0(\R^d \setminus K)\), then for every \( \varepsilon >0\) there is \( c_\varepsilon\) such that \( \big| f(y) \big| \leq \varepsilon + c_\varepsilon \dist(y,K) \). Hence, by hypothesis \(\dist(z_{n_k}, K) \to 0\) implies that \( \big( |f| - \varepsilon \big)^+ (z_{n_k}) \to 0 \) in measure, but property (2) yields that
+    \[
+        \big\langle \nu_x ,  \big( |f| - \varepsilon \big)^+ \big\rangle = 0
+    \]
+    for almost everywhere \(x\), and as \(\varepsilon\) is arbitrary, we have that \eqref{to-prove} follows.
+    
+    To prove (4), let us start assuming that
+    \[
+        \|\nu_x\|_{\mathcal{M}} = 1 \qquad \text{for almost everywhere } x\in E.
+    \]
+    Let us argue by contradiction and suppose that there exists \( R>0\) and \(\varepsilon >0 \) such that there exists a sequence \(L_k\to \infty\) and integers \(n_k\) such that
+    \[
+        \big| \big\{x\in E \cap B_R:  |z_{n_k}|(x) \geq L_k \big\} \big| > \varepsilon.
+    \]
+    for all \(k \in \N\). For \(\rho>0\), consider the function
+    \[
+        \alpha_\rho (t) :=
+        \begin{cases}
+            1   &   \text{if } t \leq \rho,
+            \\
+            0   &   \text{if } t \geq \rho + 1,
+            \\
+            \rho + 1 -t & \text{if } t \in (\rho,\rho+1).
+        \end{cases}
+    \]
+    Then the function \(\varphi_\rho:\R^d \to\R\) such that \( \varphi_\rho(x) = \alpha_\rho(|x|)\) is in \(C_0 (\R^d)\). By the second part of the theorem, we have that
+    \[
+        \int\limits_E \varphi_\rho (z_{n_k}) \chi_{B_R} \dif x
+        \to
+        \int\limits_E \langle \nu_x, \varphi_\rho \chi_{B_R}\rangle \dif x.
+    \]
+    Now, we find that for \(k\) large enough
+    \[
+        |E\cap B_R| - \varepsilon \geq \int\limits_E \varphi_\rho (z_{n_k}) \chi_{B_R} \dif x;
+    \]
+    and this implies
+    \[
+        |E\cap B_R| - \varepsilon \geq \int\limits_E \langle \nu_x, \varphi_\rho \chi_{B_R}\rangle \dif x.
+    \]
+    On the other hand, by the monotone convergence theorem, we conclude that the right-hand side of the latter expression converges as \(\rho\to \infty\) to 
+    \[
+        \int\limits_E \langle \nu_x, \chi_{B_R}\rangle \dif x
+        =
+        \int\limits_E \|\nu_x\|_{\mathcal{M}} \chi_{B_R} \dif x = |E \cap B_R|,
+    \]
+    which is a contradiction with the previous inequality.
+    
+    The converse is as follows: Let \(R>0\) be fixed and let \(f\equiv 1\) be a constant function in \(\R^d\). Then \(f(z_{n})\) is sequentially weakly relative compact in \(E \cap B_R\) and as the sequence \((z_{n_k})_{n_k\in \N}\) does not escape to infinity we get
+    \[
+        |E\cap B_R| = \int\limits_E f(z_{n_k}) \chi_{B_R} \dif x
+        \to
+        \int\limits_E \langle \nu_x, \chi_{B_R}\rangle \dif x
+        =
+        \int\limits_{E\cap B_R} \|\nu_x\|_{\mathcal{M}}  \dif x.
+    \]
+    Since \(\|\nu_x\|_{\mathcal{M}} \leq 1\), we conclude \( \|\nu_x\|_{\mathcal{M}} = 1\) a.e. \(x \in E\cap B_R\), and as \(R\) was arbitrary, the property follows.
+            
+    
+    Now suppose that \eqref{measure:cond} holds, \(f \in C(\R^d)\), and that
+    \(
+        f(z_{n_k}) 
+    \)
+     is relatively compact in  \(L^1(E)\). Let \( f^+ = \max\{f,0\}\) and \( f^- = \max\{-f,0\}\). By Dunford-Pettis theorem\footnote{Suppose that \((X,\Sigma,\mu)\) is a probability space and that \(\mathcal{F}\) is a bounded subset of \(L^1(\mu)\). \(\mathcal{F}\) is equi-integrable if and only if \(\mathcal{F}\) is a relatively compact subset of \(L^1(\mu)\) with the weak topology.}, we get that \(f^+(z_{n_k})\) and \(f^-(z_{n_k})\) are both sequentially weakly relatively compact in \(L^1(E)\). Now, to prove (5) we will suppose that \(f\geq 0\), and that \(A\) is bounded with \( f(z_{n_k}) \rightharpoonup \mu\), in \(L^1(A)\). 
+     
+     Define \(f_\rho = \varphi_\rho f\) with \(\varphi_\rho\) the same function we defined above, and let \(\psi \in L^\infty (A)\). We claim that 
+     \[
+        \int\limits_A \psi f_\rho (z_{n_k}) \dif x
+        \to
+        \int\limits_A \psi f (z_{n_k}) \dif x
+     \]
+     as \(\rho \to \infty\), uniformly in \(n_k\). In fact
+     \[
+        \bigg|
+        \int\limits_A \psi ( f_\rho - f) (z_{n_k}) \dif x
+        \bigg|
+        \leq c 
+        \int\limits_{ \{x\in A: \, |z_{n_k}|(x) \geq \rho \} }  f (z_{n_k}) \dif x,
+     \]
+     and, given \(\varepsilon>0\), by the Dunford-Pettis theorem there exists an \(M>0\) such that
+     \[
+        \sup_{n_k} \int\limits_{ \{x\in A: \, |z_{n_k}|(x) \geq M \} }  f (z_{n_k}) \dif x \leq \varepsilon.
+     \]
+     This alongside the boundness condition in (4) yields the claim. Now, we also have
+     \[
+        \lim_{n_k \to \infty} \int\limits_A \psi f_\rho(z_{n_k}) \dif x
+        = \int\limits_A \psi \langle \nu_x, f_\rho \rangle \dif x.
+     \]
+     Here it follows that
+     \[
+        \lim_{\rho \to \infty} \int\limits_A \psi \langle \nu_x, f_\rho \rangle \dif x
+        = \int\limits_A \psi \mu \dif x.
+     \]
+     Choosing \(\psi \geq 0\) and noting that \( f_\rho\) is increasing,  we deduce from the monotone convergence theorem that \( \mu = \langle \nu_x, f\rangle\) as needed.
+    
+    Finally, the proof of (6) follows by applying (5) with the bounded function \(f = \max\{\dist(\cdot, K),1\}\).
+\end{proof}
+
+
+\begin{example}
+    Let \(h : \R \to \R\) be the periodic extension of the function given by
+    \[
+        h(x) = 
+        \begin{cases}
+            a & \text{if }x \in [0,\lambda),
+            \\
+            b & \text{if }x \in [\lambda,1),
+        \end{cases}
+    \]
+    and define \(z_n : [0,1] \to \R\) by \( z_j(x) = h(jx)\). 
+    
+    Using the periodicity of \(h\), one arrives at
+    \[
+        z_n \overset{*}{\rightharpoonup} \int\limits_0^1 h(y) \dif y = \lambda a + (1-\lambda) b 
+    \]
+    or more generally 
+    \[
+        f(z_n) \overset{*}{\rightharpoonup} \lambda f(a) + (1-\lambda) f(b).
+    \]
+    As a result, \((z_n)_{n\in\N}\) generates the following Young measure:
+    \[
+        \nu_x = \lambda \delta_a + (1-\lambda) \delta_b,
+    \]
+    which is independent of \(x\). Such measures are called \emph{homogeneous Younge measures}.
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Further references}
+
+Most of the notes here can be traced back to the book of \citet{Mueller-1999}. The proof of the fundamental theorem uses complementaty results from \citet{Hungerbhler2011} and \citet{Balla-1989}. A proof of Banach-Alaoglu theorem is also available at \citet{Brezis2010}.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Availability of data, material, and code}
+{
+%\small
+
+All the files and this document are available as in the following repository:
+\begin{quote}
+    \noindent \href{https://github.com/andresrmt/Variational-Methods-for-PDEs}{\texttt{https://github.com/andresrmt/Variational-Methods-for-PDEs}}
+\end{quote}
+
+
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+
+
+\bibliography{Cites}
+
+\end{document}
+
+
+
