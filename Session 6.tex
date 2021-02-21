@@ -118,23 +118,18 @@
 
 The first half of this course centred on the study of nonlinear functionals \(I(u)\) over a function space \(X\). For instance, in \(W^{1,p}(\Omega)\), we proved the existence of minimisers for \(I(u) = \int\limits_\Omega f(x,\nabla u)  \dif x\) whenever \(I\) is weak* lower-semicontinuous, and \(f\) is convex, which let us approach the problem of finding minimisers of \(I\) through the direct method of calculus of variations.
 
-For instance, if we consider \( \Omega = (0,1)\), and the function \(f (\od{ }{x} u) = \big( (\od{ }{x} u)^2 -1 \big)^2\), then \(I(u) = \int\limits_\Omega f (\od{ }{x} u) \dif x\) attains a minimum over \(X = W^{1,4}_0(\Omega)\) and minimisers are functions such that \(\od{ }{x} u \in \{\pm 1\}\). It turns out that there are a infinite number of minimisers! To see this consider a sequence of sawtooth functions as in Figure \ref{fig:6a}. There we can see that each 
+For instance, if we consider \( \Omega = (0,1)\), and the function \(f (\od{ }{x} u) = \big( (\od{ }{x} u)^2 -1 \big)^2\), then \(I(u) = \int\limits_\Omega f (\od{ }{x} u) \dif x\) attains a minimum over \(X = W^{1,4}_0(\Omega)\) and minimisers are functions such that \(\od{ }{x} u \in \{\pm 1\}\). It turns out that there are a infinite number of minimisers! To see this consider a sequence of saw-tooth functions as in Figure \ref{fig:6a}. There we can see that each function presents \(\od{ }{x} u \in \{\pm 1\}\) almost everywhere.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{Fig-6a.pdf}
-    \caption{Sawtooth functions}
+    \caption{Saw-tooth functions}
     \label{fig:6a}
 \end{figure}
 
+Now consider the perturbed problem \( I(u) + \int\limits_\Omega |u|^2 \dif x \). We know that \( \inf I + \int |u|^2 = 0\); however, there does not exist minimisers for this function in the classical sense as a potential minimiser has to satisfy \(\od{ }{x} u \in \{\pm 1\}\) and \(u = 0\). In contrast, we can see that the saw-tooth sequence we used for \(I\) is minimising the perturbed problem, but its limit is not clear. In these lesson, we will focus on how to make sense of \emph{a function of slope \(\pm 1\) almost everywhere which is also \(0\) almost everywhere}. The answer is to use Young measures.
 
-
-
-Las week we saw that the functional 
-\[
-    J(u) = \int\limits_{[0,1]^2} u_x^2 + (u_y^2-1)^2 \dif x
-\]
-had zero as an infimum but could not attain a minimum. Namely, we built a sequence \((u_n)_{n\in \N}\) in \(H_0^1 (\Omega) \cap W_0^{1,4} (\Omega)\) such that \( J(u_n) \to 0\) and \(u_n \to 0\) in \(L^2(\Omega)\), but this resulted in a contradiction as \(J(0) = 1\). Now we turn into giving sense to this behaviour among minimising sequences.
+%Now we turn into giving sense to this behaviour among minimising sequences.
 
 %%%%%%%%%%%%%%%%%
 \subsection{Giving sense to minimising sequences}
@@ -332,6 +327,53 @@ Let us consider the following application of the last property:
     Finally, the proof of (6) follows by applying (5) with the bounded function \(f = \max\{\dist(\cdot, K),1\}\).
 \end{proof}
 
+\begin{example}
+    In the limiting case of Figure \ref{fig:6a}, \(\od{ }{x} u\) is the measure \( \nu_x = \frac 1 2 \delta_{-1} + \frac 1 2 \delta_{+1}\); moreover,  \(\supp(\nu_x) = \{\pm 1\}\). 
+    
+    Here we have that if \( f(z) = z\), then
+    \[
+        \langle \nu_x,f \rangle = \frac{1}{2} 1 + \frac{1}{2} (-1) = 0.
+    \]
+    Likewise, if \( f(z) = z^2\), then
+    \[
+        \langle \nu_x,f \rangle = \frac{1}{2} (1)^2 + \frac{1}{2} (-1)^2 = 1.
+    \]
+\end{example}
+
+\begin{corollary}
+    Suppose that a sequence \((z_n)_{n\in \N}\) of measurable functions from \(E\) to \(\R^d\) generates the Young measure \( \nu: E \to \mathcal{M}(\R^d)\). Then 
+    \[
+        z_n \to z \text{ in measure if and only if } \nu_x = \delta_{z(x)} \text{ a.e.}
+    \]
+\end{corollary}
+\begin{proof}
+    If \(z_n \to z\) in measure, then \( f(z_n) \to f(z)\) in measure as well for all \( f \in C_0(\R^d)\). Hence by (2) in the fundamental theorem one has that
+    \[
+        \langle \nu_x, f\rangle = f\big( z(x) \big)
+    \]
+    for all \( f \in C_0(\R^d)\) and thus \(\nu_x = \delta_{z(x)}\).
+    
+    Conversely, if we have that \(\nu_x = \delta_{z(x)}\) almost everywhere, we claim that
+    \[
+        \limsup_{n\to \infty} \big| \{|z_n -w | >\varepsilon\} \big|
+        \leq 
+        \big| \{|z_n -w | > \nicefrac{\varepsilon}{2}\} \big|
+    \]
+    for all piecewise constant measurable functions \(w:E\to \R^d\). To see this it suffices to consider constant functions \(w\equiv a\) and apply (5) from the fundamental theorem with \(f(y) = \varphi(|y-a|)\), with \(\varphi\) continuous \(0\leq \varphi \leq 1\), \(\varphi = 1\) on \([\varepsilon,\infty)\), and \(\varphi = 0\) on \([0,\nicefrac{\varepsilon}{2}]\). Thus
+    \begin{align*}
+        \limsup_{n\to \infty} \big| \{|z_n -z | >\varepsilon\} \big|
+        &\leq
+        \limsup_{n\to \infty} \big| \{|z_n -w | >\nicefrac{\varepsilon}{2}\} \big|
+        + \big| \{|z -w | > \nicefrac{\varepsilon}{2}\} \big|
+        \\
+        &\leq 
+        \big| \{|z -w | > \nicefrac{\varepsilon}{4}\} \big|.
+    \end{align*}
+    The last term can be made arbitrarily small since measurable functions can be approximated by piecewise constant functions, and the assertion follows.
+\end{proof}
+
+A key example for Young measures is the following, generalising \(\nu_x = \frac{1}{2} \delta_{-1} + \frac{1}{2} \delta_{+1}\) from our motivating problem.
+
 
 \begin{example}
     Let \(h : \R \to \R\) be the periodic extension of the function given by
@@ -362,6 +404,33 @@ Let us consider the following application of the last property:
 
 
 %%%%%%%%%%%%%%%%%
+
+A fundamental question for applications is now: Which \(\nu \in L^\infty_w (\Omega, \mathcal{M}(\R^d))\) are Young measures of \emph{gradients}?
+
+\begin{definition}
+    Let \(\Omega \subset \R^d\) denote a bounded domain with Lipschitz boundary.
+    
+    We say that a weakly* measurable map \(\nu: \Omega \to \mathcal{M}(M^{m\times d}) \) is a \(W^{1,p} \) gradient Young measure if there exists a sequence of maps \(u_n : \Omega \to \R^d\) such that
+    \begin{align*}
+        u_n &\rightharpoonup u
+        \quad \text{in } W^{1,p} (\Omega, \R^m) \qquad (\overset{*}{\rightharpoonup}) \text{if } p = \infty),
+        \\
+        \delta_{Du(\cdot)} &\overset{*}{\rightharpoonup} \nu 
+        \quad \text{in } L^\infty_w \big(\Omega, \mathcal{M}(M^{m\times d})\big).
+    \end{align*}
+\end{definition}
+
+Now in turn we may consider the following problem:
+
+\begin{quote}
+    Given a set \(K \subset M^{m\times d}\), characterise all \(W^{1,\infty}\)-gradient Young measures \(\nu\) such that
+    \[
+        \supp(\nu_x) \subseteq K
+        \qquad \text{for a.e. } x.
+    \]
+\end{quote}
+
+This has implications for what kind of macroscopic properties a physical system can have. There is a classification due to \citet{Kinderlehrer1994}.
 
 
 
@@ -400,4 +469,8 @@ All the files and this document are available as in the following repository:
 \end{document}
 
 
-
+Last week we saw that the functional 
+\(
+    I(u) = \int\limits_{[0,1]^2} u_x^2 + (u_y^2-1)^2 \dif x
+\)
+had zero as an infimum but could not attain a minimum. Namely, we built a sequence \((u_n)_{n\in \N}\) in \(H_0^1 (\Omega) \cap W_0^{1,4} (\Omega)\) such that \( J(u_n) \to 0\) and \(u_n \to 0\) in \(L^2(\Omega)\), but this resulted in a contradiction as \(J(0) = 1\). 
